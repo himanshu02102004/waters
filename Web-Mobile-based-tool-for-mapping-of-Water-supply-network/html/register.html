@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration - Water Supply Mapping System</title>
+    <link rel="icon" href="imag/applogo.png" />
+    <style>
+      /* General Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Body Styling */
+      body {
+        background-color: #f0f4f7;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100vh;
+        background-image: url("imag/register.jpg");
+        background-size: cover;
+      }
+
+      /* Header Styling */
+      header {
+        /* background-color: #4caf50; */
+        padding-top: 10px;
+        text-align: center;
+        color: black;
+        text-shadow: 1px 2px 10px #f0f4f7;
+      }
+
+      /* Main Section */
+      main {
+        flex-grow: 1;
+        padding: 20px;
+      }
+
+      section {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 20px 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      section:hover {
+        box-shadow: 20px 10px 15px rgba(234, 229, 229, 0.1);
+        background-color: aliceblue;
+        transform: translate(-2px, -1px);
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #0077b6;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 50px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #0077b6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #2df41b;
+        color: black;
+      }
+
+      /* Footer Styling */
+      footer {
+        /* background-color: #f0f4f7; */
+        text-align: center;
+        padding: 10px;
+        color: #ddd;
+        text-shadow: 1px 1px 10px black;
+      }
+
+      footer a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>User Registration</h1>
+    </header>
+
+    <main>
+      <section id="registerSection">
+        <h2 style="text-align: center">Register</h2>
+        <form id="registerForm">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" required />
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="usernameReg">Username:</label>
+          <input type="text" id="usernameReg" name="usernameReg" required />
+          <label for="passwordReg">Password:</label>
+          <input type="password" id="passwordReg" name="passwordReg" required />
+          <label for="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+          <button type="submit">Register</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Water Supply Mapping System. All rights reserved.</p>
+      <br />
+      <p>Developed By:</p>
+      <p>
+        Vishwajeet, Ankit & Himanshu &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Group
+        No 9
+      </p>
+      <p>Email: <a href="mailto:ankit@gmail.com">ankit@gmail.com</a></p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const firstName = document.getElementById("firstName").value;
+          const lastName = document.getElementById("lastName").value;
+          const email = document.getElementById("email").value;
+          const username = document.getElementById("usernameReg").value;
+          const password = document.getElementById("passwordReg").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          // Password confirmation check
+          if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+          }
+
+          // Retrieve users from local storage or create an empty array
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+
+          // Check if the username already exists
+          const userExists = users.some((user) => user.username === username);
+
+          if (userExists) {
+            alert("Username already exists. Please choose a different one.");
+            return;
+          }
+
+          // Add new user to the users array
+          users.push({ firstName, lastName, email, username, password });
+          localStorage.setItem("users", JSON.stringify(users));
+
+          // Show success message
+          alert("Registration successful!");
+
+          // Redirect to the login page
+          window.location.href = "login.html";
+        });
+    </script>
+  </body>
+</html>

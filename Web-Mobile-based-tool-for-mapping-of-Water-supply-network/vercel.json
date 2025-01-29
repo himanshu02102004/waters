@@ -1,0 +1,12 @@
+{
+    "routes": [{
+            "src": "/api/(.*)",
+            "dest": "http://localhost:5000/api/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/$1"
+        }
+
+    ]
+}
