@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="User login page for the Water Supply Mapping System"
+    />
+    <title>User Login - Water Supply Mapping System</title>
+    <link rel="icon" href="imag/applogo.png" />
+    <style>
+      /* General reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Body styling */
+      body {
+        background-color: #f0f4f7;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100vh;
+        background-image: url("imag/joseph-barrientos-oQl0eVYd_n8-unsplash.jpg");
+        background-size: cover;
+      }
+
+      /* Header styling */
+      header {
+        /* background-color: #4caf50; */
+        padding: 20px;
+        text-align: center;
+        color: black;
+        text-shadow: 1px 2px 10px #f0f4f7;
+        padding-top: 100px;
+      }
+
+      /* Main content styling */
+      main {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Login section styling */
+      #loginSection {
+        background-color: white;
+        padding: 30px;
+        border-radius: 20px 50px;
+        max-width: 400px;
+        width: 100%;
+      }
+      #loginSection:hover {
+        box-shadow: 20px 10px 15px rgba(234, 229, 229, 0.1);
+        background-color: aliceblue;
+        transform: translate(-2px, -1px);
+      }
+
+      /* Form input styling */
+      form label {
+        display: block;
+        margin: 15px 0 5px;
+      }
+
+      form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 50px;
+      }
+
+      /* Button styling */
+      form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #0077b6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+
+      form button:hover {
+        background-color: #2df41b;
+        color: black;
+      }
+
+      /* Footer styling */
+      footer {
+        /* background-color: #f0f4f7; */
+        text-align: center;
+        padding: 10px;
+      }
+
+      /* Spinner styling */
+      .spinner {
+        display: none;
+        width: 30px;
+        height: 30px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #0077b6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+      footer p {
+        /* box-shadow: 0px 0px 15px rgb(220, 218, 218); */
+        text-shadow: 1px 1px 5px #000d0f;
+        color: #ddd;
+        font-weight: 700;
+      }
+      footer a {
+        color: #ddd;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      a:hover {
+        color-scheme: blue;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>User Login</h1>
+    </header>
+
+    <main>
+      <section id="loginSection" aria-labelledby="loginHeading">
+        <h2 id="loginHeading" style="text-align: center">Login</h2>
+        <form id="loginForm" aria-describedby="loginFormDescription" novalidate>
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            aria-required="true"
+            autocomplete="username"
+          />
+
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            aria-required="true"
+            autocomplete="current-password"
+          />
+
+          <button type="submit">Login</button>
+          <div id="spinner" class="spinner"></div>
+        </form>
+        <p id="loginFormDescription" style="text-align: center">
+          New user? <a href="register.html">Register</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Water Supply Mapping System. All rights reserved.</p>
+      <br />
+      <p>Developed by:</p>
+      <p>
+        Vishwajeet, Ankit, Himanshu &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;group
+        no 9
+      </p>
+      <p>Email: <a href="mailto:ankit@gmail.com">ankit@gmail.com</a></p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const spinner = document.getElementById("spinner");
+          spinner.style.display = "block";
+
+          // Simulate stalling by waiting 3 seconds before checking credentials
+          setTimeout(() => {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            const user = users.find(
+              (user) => user.username === username && user.password === password
+            );
+
+            if (user) {
+              alert("Login successful!");
+              window.location.href = "dashboard.html";
+            } else {
+              alert("Invalid username or password.");
+            }
+            spinner.style.display = "none";
+          }, 3000); // Simulated delay of 3 seconds
+        });
+    </script>
+  </body>
+</html>
